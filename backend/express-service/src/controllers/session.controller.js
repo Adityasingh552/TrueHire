@@ -18,7 +18,9 @@ import {
  * LangGraph unchanged; Express only owns the DB session lifecycle.
  */
 
-const FASTAPI_URL = process.env.FASTAPI_URL || "http://localhost:8000";
+// Trailing slash stripped: this is used as `${FASTAPI_URL}/build-profile`, and
+// a "//build-profile" path does not match the FastAPI route.
+const FASTAPI_URL = (process.env.FASTAPI_URL || "http://localhost:8000").replace(/\/+$/, "");
 
 // Résumé PDFs up to 5 MB, kept in memory to forward to FastAPI.
 export const uploadProfile = multer({

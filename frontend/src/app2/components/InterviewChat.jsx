@@ -6,7 +6,8 @@ import ConfirmSubmitModal from '../../components/ConfirmSubmitModal';
 import { markRoundComplete, getProgress, ROUND_ORDER } from '../../services/roundProgress';
 import RoundReportView, { RoundReportLoading, RoundReportError } from './RoundReportView';
 
-const API_BASE = import.meta.env.VITE_FASTAPI_URL || 'http://localhost:8000';
+// Trailing slash stripped — see the note in app2/api.js.
+const API_BASE = (import.meta.env.VITE_FASTAPI_URL || 'http://localhost:8000').replace(/\/+$/, '');
 
 export default function InterviewChat({ sessionData, onBackToDashboard, onBackToRounds }) {
   const { token } = useAuth();

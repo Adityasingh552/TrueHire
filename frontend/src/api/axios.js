@@ -1,7 +1,9 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000",
+  // Trailing slash stripped: baseURL + "/api/..." would otherwise request
+  // "//api/...", which Express 5 treats as an unmatched route (404).
+  baseURL: (import.meta.env.VITE_API_URL || "http://localhost:5000").replace(/\/+$/, ""),
   headers: {
     "Content-Type": "application/json",
   },

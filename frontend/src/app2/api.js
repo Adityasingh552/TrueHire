@@ -1,7 +1,13 @@
-const API_BASE = import.meta.env.VITE_FASTAPI_URL || 'http://localhost:8000';
+// Every request below is built as `${BASE}/path`, so a base URL ending in "/"
+// would produce "//path" — which Express 5 does not match, giving a 404 that
+// looks like a CORS failure in the browser. Tolerate the trailing slash here
+// instead of relying on whoever sets the deploy env var to omit it.
+const trimBase = (url) => url.replace(/\/+$/, '');
+
+const API_BASE = trimBase(import.meta.env.VITE_FASTAPI_URL || 'http://localhost:8000');
 // Express base — Build Profile is proxied through Express so a new InterviewSession
 // is created per résumé upload (the AI work still runs in FastAPI/LangGraph).
-const EXPRESS_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const EXPRESS_BASE = trimBase(import.meta.env.VITE_API_URL || 'http://localhost:5000');
 
 export async function buildProfile(token, file, githubUsername, extraFields = {}) {
   const formData = new FormData();

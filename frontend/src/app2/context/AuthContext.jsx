@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useCallback } from 'react';
 
-const API_BASE = import.meta.env.VITE_FASTAPI_URL || 'http://localhost:8000';
+// Trailing slash stripped — see the note in app2/api.js.
+const API_BASE = (import.meta.env.VITE_FASTAPI_URL || 'http://localhost:8000').replace(/\/+$/, '');
 
 const AuthContext = createContext(null);
 
