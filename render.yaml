@@ -26,7 +26,7 @@ services:
     healthCheckPath: /
     envVars:
       - key: NODE_VERSION
-        value: "20.18.0"
+        value: "22"
       # ── Secrets — Render prompts for these ──
       - key: DATABASE_URL          # Supabase Postgres connection string
         sync: false
